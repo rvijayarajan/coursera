@@ -1,0 +1,89 @@
+<html>
+<head>
+	<title>Dating Website !!!</title>
+	<meta charset="UTF-8">
+	<meta name="keywords" content="Dating, Chatting">
+	<meta name="description" content="Website to find a dating partner">
+	<meta name="author" content="Vijayarajan Ravindran">
+	<meta name="application-name" content="Website to find a dating partner">
+	<style>
+		fieldset{ background:lightyellow; border: 10px solid yellow; margin-bottom:10px; width: 720px; }
+		label{ width: 180px; display:inline-block; text-align: right; vertical-align: top;}
+		textarea{ width: 360px; height: 50px; }
+		#genderText{ width: auto; }
+		#contactText{ width: auto; }
+		#indicatorText{ width: auto; text-align: center; }
+		input[type="textarea"]{ width:360px; height:50px; }
+		label:hover { font-size:40px }
+	</style>
+	<script src="https://www.cse.ust.hk/~rossiter/dating_web_site.js"></script>
+</head>
+<body>
+	<h2>Please Enter Your Details For Our Dating Website !</h2>
+	<form method="post" action="https://ihome.ust.hk/~rossiter/cgi-bin/show_everything.php">
+		<fieldset>
+			<legend>Your Face</legend>
+			<label for="file">Your image:</label>
+			<input type="file" id="file" name="file" required>
+			<br><br>
+			<label for="preview">Image preview:</label>
+			<img id="preview">
+		</fieldset>
+		<fieldset>
+			<legend>Your General Details</legend>
+			<label for="name">Name:</label>
+			<input type="text" id="name" name="fullname" placeholder="Your full name" required>
+			<br><br>
+			<label for="gender">Gender:</label>
+			<input type="radio" name="gender" id="gender" value="Male" required><label id="genderText">Male</label>
+			<input type="radio" name="gender" id="gender" value="Female" required><label id="genderText">Female</label>
+			<br><br>
+			<label for="age">Age:</label>
+			<input type="number" name="age" id="age" required>
+			<br><br>
+			<label for="date">Date of birth:</label>
+			<input type="date" name="date" id="date">
+			<br><br>
+			<label for="color">Favourite Color:</label>
+			<input type="color" name="color" id="color">
+			<br><br>
+			<label for="country">Which Country:</label>
+			<select name="country" id="country">
+				<option value=""></option>
+				<option value="India">India</option>
+				<option value="United States">United States</option>
+				<option value="Canada">Canada</option>
+				<option value="France">France</option>
+				<option value="Germany">Germany</option>
+				<option value="United Kingdom">United Kingdom</option>
+			</select>
+		</fieldset>
+		<fieldset>
+			<legend>Your Indicators</legend>
+			<label for="height">Height:</label>
+			<label id="indicatorText">Short</label><input type="range" name="height" id="height"><label id="indicatorText">Tall</label>
+			<br><br>
+			<label for="salary">Salary:</label>
+			<label id="indicatorText">Poor</label><input type="range" name="salary" id="salary"><label id="indicatorText">Rich</label>
+		</fieldset>
+		<fieldset>
+			<legend>Your Contact Information</legend>
+			<label for="email">Email:</label>
+			<input type="email" name="email" id="email" required>
+			<br><br>
+			<label for="mobile">Mobile:</label>
+			<input type="tel" name="mobile" id="mobile">
+			<br><br>
+			<label for="address">Address:</label>
+			<textarea name="address" id="address" rows="3" cols="50"></textarea>
+			<br><br>
+			<label for="contact">Method to contact you:</label>
+			<input type="checkbox" name="contact" id="contact"><label id="contactText">Email</label>
+			<input type="checkbox" name="contact" id="contact"><label id="contactText">Whatsapp</label>
+			<input type="checkbox" name="contact" id="contact"><label id="contactText">In-app chat</label>
+		</fieldset>
+		<br>
+		<input type="submit">
+	</form>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<html>
+<head>
+	<title>Matching Game !!!</title>
+	<meta charset="UTF-8">
+	<meta name="keywords" content="Game, Matching">
+	<meta name="description" content="Website to play matching game">
+	<meta name="author" content="Vijayarajan Ravindran">
+	<meta name="application-name" content="Website to play matching game">
+	<style>
+		img{ position:absolute; }
+		div{ position:absolute; width:500px; height:500px; }
+		#rightSide { left: 500px; border-left: 1px solid black; }
+	</style>
+</head>
+<body onload="generateFaces()">
+	<h2>Matching Game !</h2>
+	<p>Click on the extra smiling face on the left.</p>
+	<div id="leftSide"></div> 
+	<div id="rightSide"></div>
+	
+	<script type="text/javascript">
+		var numberOfFaces = 5;
+		var theBody = document.getElementsByTagName("body")[0];
+		var theLeftSide = document.getElementById("leftSide");
+		var theRightSide = document.getElementById("rightSide");
+		function generateFaces() {
+			for(var i=0; i<numberOfFaces; i++) {
+				var img = document.createElement("IMG");
+				img.src="http://home.cse.ust.hk/~rossiter/mooc/matching_game/smile.png";
+				img.style.top=Math.floor(Math.random() * 450);
+				img.style.left=Math.floor(Math.random() * 450);
+				img.width=50;
+				img.height=50;
+				theLeftSide.appendChild(img);
+			}
+			leftSideImages = theLeftSide.cloneNode(true);
+			leftSideImages.removeChild(leftSideImages.childNodes[leftSideImages.childNodes.length-1]);
+			theRightSide.appendChild(leftSideImages);
+			theLeftSide.lastChild.onclick= nextLevel;
+			theBody.onclick=gameOver;
+		}
+		
+		var nextLevel = function(event) {
+			event.stopPropagation();
+			removeChild();
+			numberOfFaces += 5;
+			generateFaces();
+		};
+		
+		var gameOver = function() {
+			alert("Game Over !!!");
+			theBody.onclick = null;
+			theLeftSide.lastChild.onclick = null;
+			removeChild();
+		};
+		
+		var removeChild = function() {
+			var length = theLeftSide.childNodes.length;
+			while(length>0) {
+				theLeftSide.removeChild(theLeftSide.childNodes[length-1]);
+				length--;
+			}
+			theRightSide.removeChild(theRightSide.childNodes[0]);
+		};
+	</script>
+</body>
+</html>
