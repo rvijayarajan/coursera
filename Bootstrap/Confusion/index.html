@@ -61,7 +61,7 @@
 				<li><a href="contactus.html"><span class="fa fa-envelope" aria-hidden="true"></span> Contact</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-                <li><a data-toggle="modal" data-target="#loginModal">
+                <li><a href="#" id="loginButton">
                 <span class="glyphicon glyphicon-log-in"></span> Login</a>
                 </li>
             </ul>
@@ -216,8 +216,11 @@
                 </div>
 				<div class="col-xs-12 col-sm-2">
                     <p style="padding:40px;"></p>
-					<a href="#reserve" style="width: 100%;" class="btn btn-warning" role="button"
-                        data-toggle="modal" data-target="#reserveModal">Reserve Table</a>
+                    reserveButton
+          <a href="#" style="width: 100%;" class="btn btn-warning" role="button"
+                        id="reserveButton">Reserve Table</a>
+					<!--a href="#reserve" style="width: 100%;" class="btn btn-warning" role="button"
+                        data-toggle="modal" data-target="#reserveModal">Reserve Table</a-->
                     <!--a href="#reserve" style="width: 100%;" class="btn btn-warning" role="button" data-toggle="tooltip" title="Or Call us at +852 12345678" data-placement="bottom">Reserve Table</a-->
 					<!--a href="#reserve" style="width: 100%;" class="btn btn-warning" role="button" data-toggle="popover" title="Our Tel. Number" data-content="+852 12345678" data-placement="right">Reserve Table</a-->
                 </div>
@@ -539,6 +542,14 @@
         $("#mycarousel").carousel('cycle');
       });
 		});
+
+    $('#loginButton').click(function(e) {
+      $('#loginModal').modal('toggle');
+    });
+
+    $('#reserveButton').click(function(e) {
+      $('#reserveModal').modal('toggle');
+    });
 		
 		$('.navbar li a').click(function(e) {
 			$('.navbar li.active').removeClass('active');
