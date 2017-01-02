@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" ng-app="confusionApp">
 
@@ -25,43 +26,44 @@
 
 <body>
 
-    <div class="container" ng-controller="dishDetailController as dishCtrl">
-        <div class="row row-content">
+    <div class="container">
+        <div class="row row-content" ng-controller="dishDetailController as dishCtrl">
             <div class="col-xs-12">
-                <ul class="media-list">
-                    <li class="media">
-                        <div class="media-left media-middle">
-                            <a href="#">
-                            <img class="media-object img-thumbnail"
-                             ng-src={{dishCtrl.dish.image}} alt="Uthappizza">
-                            </a>
-                        </div>
-                        <div class="media-body">
-                            <h2 class="media-heading">{{dishCtrl.dish.name}}
-                             <span class="label label-danger">{{dishCtrl.dish.label}}</span>
-                             <span class="badge">{{dishCtrl.dish.price | currency}}</span></h2>
-                            <p>{{dishCtrl.dish.description}}</p>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-xs-9 col-xs-offset-1">
-                <div class="col-xs-12">
-                  <h3 class="col-xs-6">Customer Comments</h3>
-                  <p class="col-xs-5">
-                    <label for="search">Sort by: </label>
-                    <input type="text" id="search" name="search" ng-model="searchText">  
-                  </p>
+                <div class="media">
+             
+                    <div class="media-left media-middle">
+                    <a href="#"><img ng-src={{dishCtrl.dish.image}} class="media-object img-thumbnail" alt="Uthappizza"></a>
+                    </div>
+                  <div class="media-body">
+                    <h2 class="media-title">{{dishCtrl.dish.name}}</h2>
+                      <span class="label label-danger label-xs">{{dishCtrl.dish.label}}</span>
+                      <span class="badge">{{dishCtrl.dish.price | currency}}</span>
+                      <p>{{dishCtrl.dish.description}}</p>
+                      
                 </div>
                 
-                <div class="well col-xs-12" ng-repeat="comment in dishCtrl.dish.comments | orderBy: searchText">
-                    <blockquote>
-                        <p>{{comment.rating}} Stars</p>
-                        <p>{{comment.comment}}</p>
-                        <footer>{{comment.author}},
-                          <cite>{{comment.date | date : 'MMM. dd, y'}}</cite>
-                        </footer>
-                    </blockquote>
+                </div>
+            </div>
+            
+            <div class="col-xs-9 col-xs-offset-1">
+                <h3>Customer Comments</h3>
+                <label for="sort">Sort By:</label> 
+                <input  id="sort" type="text" ng-model="dishCtrl.sortBy">
+                
+                
+                <div class="col-xs-12">
+                <ul class="list-unstyled">
+                <li ng-repeat="com in dishCtrl.dish.comments | orderBy:dishCtrl.sortBy">
+                   <blockquote>
+                      <p>{{com.rating}} Stars</p>
+                      <p>{{com.comment}}</p>
+                    <footer>
+                        {{ com.author }}  {{ com.date | date:'dd/MM/yyyy' }}
+                     </footer>
+                </blockquote>
+                 </li>
+                </ul>
+            
                 </div>
             </div>
         </div>
@@ -118,7 +120,7 @@
                     };
             
             this.dish = dish;
-            
+            this.sortType='';
         });
 
     </script>
