@@ -10,12 +10,13 @@
          content must come *after* these tags -->
     <title>Ristorante Con Fusion: Menu</title>
         <!-- Bootstrap -->
+    <!-- build:css styles/main.css -->
     <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="../bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="styles/bootstrap-social.css" rel="stylesheet">
     <link href="styles/mystyles.css" rel="stylesheet">
-
+    <!-- endbuild -->
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -27,18 +28,18 @@
 <body>
 
     <div class="container">
-        <div class="row row-content" ng-controller="dishDetailController as dishCtrl">
+        <div class="row row-content" ng-controller="DishDetailController as dishCtrl">
             <div class="col-xs-12">
                 <div class="media">
              
                     <div class="media-left media-middle">
-                    <a href="#"><img ng-src={{dishCtrl.dish.image}} class="media-object img-thumbnail" alt="Uthappizza"></a>
+                    <a href="#"><img ng-src={{dish.image}} class="media-object img-thumbnail" alt="Uthappizza"></a>
                     </div>
                   <div class="media-body">
-                    <h2 class="media-title">{{dishCtrl.dish.name}}</h2>
-                      <span class="label label-danger label-xs">{{dishCtrl.dish.label}}</span>
-                      <span class="badge">{{dishCtrl.dish.price | currency}}</span>
-                      <p>{{dishCtrl.dish.description}}</p>
+                    <h2 class="media-title">{{dish.name}}</h2>
+                      <span class="label label-danger label-xs">{{dish.label}}</span>
+                      <span class="badge">{{dish.price | currency}}</span>
+                      <p>{{dish.description}}</p>
                       
                 </div>
                 
@@ -48,12 +49,12 @@
             <div class="col-xs-9 col-xs-offset-1">
                 <h3>Customer Comments</h3>
                 <label for="sort">Sort By:</label> 
-                <input  id="sort" type="text" ng-model="dishCtrl.sortBy">
+                <input  id="sort" type="text" ng-model="sortBy">
                 
                 
                 <div class="col-xs-12">
                 <ul class="list-unstyled">
-                <li ng-repeat="com in dishCtrl.dish.comments | orderBy:dishCtrl.sortBy">
+                <li ng-repeat="com in dish.comments | orderBy:sortBy">
                    <blockquote>
                       <p>{{com.rating}} Stars</p>
                       <p>{{com.comment}}</p>
@@ -66,64 +67,65 @@
             
                 </div>
             </div>
+
+            <div class="col-xs-12 col-xs-offset-1" ng-controller="DishCommentController">
+                <form class="form-horizontal" role="form" name="commentForm" ng-submit="submitComment()" novalidate>
+                    <div class="form-group" ng-class="{ 'has-error' : commentForm.firstname.$error.required && !commentForm.firstname.$pristine }">
+                        <label for="firstname" class="col-sm-2 control-label">First Name</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Enter Your Name" ng-model="comments.firstName" required>
+                            <span ng-show="commentForm.firstname.$error.required && !commentForm.firstname.$pristine" class="help-block">Your name is required.</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                       <label for="rating" class="col-sm-2 control-label">Number of Stars</label>
+                       <div class="radio col-sm-5">
+                            <label class="radio-inline">
+                                <input type="radio" name="rating" value="" ng-model="comments.rating">
+                                <strong>1</strong>
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="rating" value="" ng-model="comments.rating">
+                                <strong>2</strong>
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="rating" value="" ng-model="comments.rating">
+                                <strong>3</strong>
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="rating" value="" ng-model="comments.rating">
+                                <strong>4</strong>
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="rating" value="" ng-model="comments.rating">
+                                <strong>5</strong>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="{ 'has-error' : commentForm.comment.$error.required && !commentForm.comment.$pristine }">
+                        <label for="comment" class="col-sm-2 control-label">Your Comments</label>
+                        <div class="col-sm-8">
+                            <textarea class="form-control" id="comment" name="comment" rows="12"
+                                ng-model="comments.comment" required></textarea>
+                            <span ng-show="commentForm.comment.$error.required && !commentForm.comment.$pristine" class="help-block">Your comment is required.</span>
+                        </div>
+                    </div> 
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-8">
+                          <button type="submit" class="btn btn-primary" ng-disabled="commentForm.$invalid">Submit Comment</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
         </div>
 
     </div>
 
+    <!-- build:js scripts/main.js -->
     <script src="../bower_components/angular/angular.min.js"></script>
-    <script>
-
-        var app = angular.module('confusionApp',[]);
-        
-        app.controller('dishDetailController', function() {
-
-            var dish={
-                          name:'Uthapizza',
-                          image: 'images/uthapizza.png',
-                          category: 'mains', 
-                          label:'Hot',
-                          price:'4.99',
-                          description:'A unique combination of Indian Uthappam (pancake) and Italian pizza, topped with Cerignola olives, ripe vine cherry tomatoes, Vidalia onion, Guntur chillies and Buffalo Paneer.',
-                           comments: [
-                               {
-                                   rating:5,
-                                   comment:"Imagine all the eatables, living in conFusion!",
-                                   author:"John Lemon",
-                                   date:"2012-10-16T17:57:28.556094Z"
-                               },
-                               {
-                                   rating:4,
-                                   comment:"Sends anyone to heaven, I wish I could get my mother-in-law to eat it!",
-                                   author:"Paul McVites",
-                                   date:"2014-09-05T17:57:28.556094Z"
-                               },
-                               {
-                                   rating:3,
-                                   comment:"Eat it, just eat it!",
-                                   author:"Michael Jaikishan",
-                                   date:"2015-02-13T17:57:28.556094Z"
-                               },
-                               {
-                                   rating:4,
-                                   comment:"Ultimate, Reaching for the stars!",
-                                   author:"Ringo Starry",
-                                   date:"2013-12-02T17:57:28.556094Z"
-                               },
-                               {
-                                   rating:2,
-                                   comment:"It's your birthday, we're gonna party!",
-                                   author:"25 Cent",
-                                   date:"2011-12-02T17:57:28.556094Z"
-                               }
-                               
-                           ]
-                    };
-            
-            this.dish = dish;
-            this.sortType='';
-        });
-
-    </script>
+    <script src="scripts/index.js"></script>
+    <!-- endbuild -->
 
 </body>
 
