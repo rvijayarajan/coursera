@@ -155,18 +155,18 @@ app.controller('DishDetailController', function ($scope) {
 app.controller('DishCommentController', function ($scope) {
 	
 	var comment = {
-		author: '',
 		rating: 5,
 		comment: '',
+		author: '',
 		date: ''
 	};
 	$scope.comments = comment;
 	
 	$scope.submitComment = function () {
-		$scope.comments.date = new Date().toISOString();
-		$scope.dish.comments.push($scope.comments);
-		$scope.commentForm.$setPristine();
-		$scope.comments = { author: '', rating: 5, comment: '', date: '' };
-		console.log($scope);
+		 $scope.comments.date = new Date().toISOString();
+		 $scope.comments.rating = Number($scope.comments.rating);
+		 $scope.dish.comments.push($scope.comments);
+		 $scope.commentForm.$setPristine();
+		 $scope.comments = { rating: 5, comment: '', author: '', date: '' };
 	};
 });
