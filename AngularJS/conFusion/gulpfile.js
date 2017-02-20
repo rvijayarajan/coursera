@@ -22,7 +22,7 @@ gulp.task('jshint', function() {
 });
 
 gulp.task('usemin', ['jshint'], function() {
-	return gulp.src(['./app/dishdetail.html'])
+	return gulp.src(['./app/menu.html'])
 		   .pipe(usemin({
 		   		css: [minifycss(), rev()],
 		   		js: [ngannotate(), uglify(), rev()]
